@@ -1,0 +1,15 @@
+##### ServiceNow specific settings #####
+[service_now]
+# instance or host required, instance takes precedence if both defined
+instance=
+# basic auth info
+user=
+password=
+
+[service_now_ticket_patterns]
+# Option names in this section must have a corresponding section
+;incident=INC.*
+
+;[incident]
+;table=incident
+;query=
