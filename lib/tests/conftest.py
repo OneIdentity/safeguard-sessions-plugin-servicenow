@@ -33,6 +33,7 @@ def snow_user(site_parameters):
 def snow_password(site_parameters):
     return site_parameters["password"]
 
+
 @pytest.fixture
 def mapped_user_id(site_parameters):
     return site_parameters["mapped_user_id"]

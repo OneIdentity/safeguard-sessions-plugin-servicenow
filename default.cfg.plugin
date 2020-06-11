@@ -1,15 +1,27 @@
 ##### ServiceNow specific settings #####
 [service_now]
-# instance or host required, instance takes precedence if both defined
+# instance or host of ServiceNow required, instance takes precedence if both defined
 instance=
-# basic auth info
+# basic authentication information. Currently only username and password supported
 user=
 password=
+
+# ServiceNow field in the request to update with the SPS session id
+;update_field=close_notes
 
 [service_now_ticket_patterns]
 # Option names in this section must have a corresponding section
 ;incident=INC.*
 
+# This section handles the incident type ServiceNow requests
 ;[incident]
+# The table in which the incidents are stored
 ;table=incident
+# The query you would like to run in order to validate the provided ServiceNow request
+# You can build this query if you go to the corresponding table in ServiceNow and choose the Filter option
+# Once you have put together your query you have to Run it
+# After you ran your query you will be able to Copy the query from the context menu
+# In order to insert variable data in to the query you can use the following option which get templated into the query string
+# $ticket_id, $username and all of the items of the ConnectionInfo except the passwords
+# You have to use $ as delimiter
 ;query=
