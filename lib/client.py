@@ -36,6 +36,8 @@ class ServiceNowClient:
         return cls(instance, host, user, password, session)
 
     def _construct_client(self):
+        # If instance is not defined in the config, host is required. If both are defined, instance
+        # takes precedence.
         with self._session as _session:
             _session.auth = requests.auth.HTTPBasicAuth(self._username, self._password)
             return (

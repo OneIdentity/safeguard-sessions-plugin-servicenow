@@ -35,8 +35,6 @@ class Plugin(AAPlugin):
         return super()._extract_mfa_password()
 
     def do_authorize(self):
-        # If instance is not defined in the config, host is required. If both are defined, instance
-        # takes precedence.
         ticket_id = self.mfa_password
 
         ticket_type_section = self._determine_section(ticket_id)
@@ -79,8 +77,16 @@ class Plugin(AAPlugin):
 
     def _update_service_now_ticket(self, resource, ticket_id):
         self.logger.info("Updating Service Now request with id: {}".format(ticket_id))
+        field_to_update = self.plugin_configuration.get("service_now", "update_field", default="close_notes")
         try:
-            update_payload = {"close_notes": "SPS session id: {}".format(self.connection.session_id)}
+            update_payload = {field_to_update: "SPS session id: {}".format(
+                self._create_url_compatible_session_id(self.connection.session_id))}
             resource.update(query={"number": ticket_id}, payload=update_payload)
         except HTTPError:
             self.logger.debug("Unable to update Service Now request with id: {}".format(ticket_id))
+
+    @staticmethod
+    def _create_url_compatible_session_id(session_id):
+        # HACK: until Plugin SDK does not generate the session url
+        replace_chars_with_dash = r"""[;/?:@=&"<># %`{}|\\~\[\]^]"""
+        return re.sub(replace_chars_with_dash, "-", session_id)
