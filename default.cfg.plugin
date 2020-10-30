@@ -23,5 +23,8 @@ password=
 # After you ran your query you will be able to Copy the query from the context menu
 # In order to insert variable data in to the query you can use the following option which get templated into the query string
 # $ticket_id, $username and all of the items of the ConnectionInfo except the passwords
-# You have to use $ as delimiter
+# To reference values use the $ prefix.
+# For example, assigned_to=$username will reference the calculated user name the ticket should be assigned to in Service Now.
+# Ensure that the referenced parameter is available in the plugin’s ConnectionInfo class.
+# For the complete list of parameters, see https://oneidentity.github.io/safeguard-sessions-plugin-sdk/latest/sections/aa_plugins/aa_plugin_connection_information.html#safeguard.sessions.plugin.connection_info.ConnectionInfo
 ;query=
