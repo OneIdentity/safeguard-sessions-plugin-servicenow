@@ -3,4 +3,4 @@ description: Allows ServiceNow tickets to be checked during connection setup
 entry_point: main.py
 name: SPS_ServiceNow
 type: aa
-version: 0.1
+version: 1.0
